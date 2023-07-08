@@ -5,7 +5,7 @@ namespace ContainerProducts.Api.Core;
 
 public class ModelValidatorBase<T> : AbstractValidator<T> where T : class
 {
-    public ModelValidatorBase() => ClassLevelCascadeMode = CascadeMode.Stop;
+    public ModelValidatorBase() => RuleLevelCascadeMode = CascadeMode.Stop;
 
     protected override bool PreValidate(ValidationContext<T> context, ValidationResult result)
     {

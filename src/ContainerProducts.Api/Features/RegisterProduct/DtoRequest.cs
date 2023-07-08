@@ -5,24 +5,21 @@ using FluentValidation;
 namespace ContainerProducts.Api.Features.RegisterProduct;
 
 public record DtoRequest(string CategoryId, string ProductId, string Name, decimal UnitPrice)
-    : IDtoRequest<DtoRequest, DtoRequestValidator>
+    : IDtoRequest<DtoRequest, DtoRequest.DtoRequestValidator>
 {
     public string CorrelationId { get; set; } = Guid.NewGuid().ToString("N");
-}
 
-public class DtoRequestValidator : ModelValidatorBase<DtoRequest>
-{
-    public DtoRequestValidator()
+    internal DomainRequest ToDomainRequest() =>
+        new(CorrelationId, CategoryId, ProductId, Name, UnitPrice);
+
+    public sealed class DtoRequestValidator : ModelValidatorBase<DtoRequest>
     {
-        RuleFor(x => x.CategoryId).NotNullOrEmpty();
-        RuleFor(x => x.ProductId).NotNullOrEmpty();
-        RuleFor(x => x.Name).NotNullOrEmpty();
-        RuleFor(x => x.UnitPrice).GreaterThan(0);
+        public DtoRequestValidator()
+        {
+            RuleFor(x => x.CategoryId).NotNullOrEmpty();
+            RuleFor(x => x.ProductId).NotNullOrEmpty();
+            RuleFor(x => x.Name).NotNullOrEmpty();
+            RuleFor(x => x.UnitPrice).GreaterThan(0);
+        }
     }
-}
-
-public class DtoRequestHandler : DtoRequestHandlerBase<DtoRequest, DtoRequestValidator>
-{
-    public DtoRequestHandler(IValidator<DtoRequest> validator, ILogger<DtoRequestHandler> logger)
-        : base(validator, logger) { }
 }

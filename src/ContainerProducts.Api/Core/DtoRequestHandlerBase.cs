@@ -18,6 +18,8 @@ public abstract class DtoRequestHandlerBase<TDto, TDtoValidator>
         _validator = validator;
         _logger = logger;
     }
+    
+    
 
     protected virtual Task<ValidationResult> ValidateAsync(TDto request, CancellationToken token)
     {
@@ -36,6 +38,6 @@ public interface IDtoRequest<TRequest, TValidator>
 {
     public string CorrelationId { get; set; }
 
-    public Task<ValidationResult> ValidateRequestAsync(TValidator validator, TRequest request) =>
-        validator.ValidateAsync(request);
+    // public Task<ValidationResult> ValidateRequestAsync(TValidator validator, TRequest request) =>
+    //     validator.ValidateAsync(request);
 }
