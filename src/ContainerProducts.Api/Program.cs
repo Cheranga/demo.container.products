@@ -2,11 +2,14 @@ using System.ComponentModel.DataAnnotations;
 using ContainerProducts.Api.Features.RegisterProduct;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using RouteHandler = ContainerProducts.Api.Features.RegisterProduct.RouteHandler;
+using ContainerProducts.Api.Features.RegisterProduct;
+using ContainerProducts.Api.Features.UpdateProduct;
+using Register = ContainerProducts.Api.Features.RegisterProduct;
+using Update = ContainerProducts.Api.Features.UpdateProduct;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
-builder.Services.AddScoped<DomainRequestHandler>();
+builder.Services.UseRegisterProduct().UseUpdateProduct();
+
 var app = builder.Build();
 
 var routeGroupBuilder = app.MapGroup("products");
@@ -14,10 +17,20 @@ routeGroupBuilder.MapPost(
     "register",
     (
         [FromHeader] [Required] string correlationId,
-        [FromBody] DtoRequest request,
-        [FromServices] IValidator<DtoRequest> validator,
-        [FromServices] DomainRequestHandler handler
-    ) => RouteHandler.Handle(correlationId, request, validator, handler)
+        [FromBody] Register.DtoRequest request,
+        [FromServices] IValidator<Register.DtoRequest> validator,
+        [FromServices] Register.DomainRequestHandler handler
+    ) => Register.RouteHandler.Handle(correlationId, request, validator, handler)
+);
+
+routeGroupBuilder.MapPut(
+    "update",
+    (
+        [FromHeader] [Required] string correlationId,
+        [FromBody] Update.DtoRequest request,
+        [FromServices] IValidator<Update.DtoRequest> validator,
+        [FromServices] Update.DomainRequestHandler handler
+    ) => Update.RouteHandler.Handle(correlationId, request, validator, handler)
 );
 
 app.MapGet("/", () => "Hello World!");

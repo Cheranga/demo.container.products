@@ -1,3 +1,262 @@
+PUT https://localhost:7149/products/update
+Content-Type: application/json
+CorrelationId: 666
+Content-Length: 97
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+"categoryId": "ELEC666",
+"productId": "PRD123456",
+"name": "Electric Saw",
+"unitPrice": 99.90
+}
+
+###
+
+POST https://localhost:7149/products/register
+Content-Type: application/json
+CorrelationId: 666
+Content-Length: 106
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "categoryId": "ELEC666",
+  "productId": "PRD123456",
+  "name": "Electric Saw",
+  "unitPrice": 120.50
+}
+
+###
+
+POST https://localhost:7149/products/register
+Content-Type: application/json
+CorrelationId: 666
+Content-Length: 106
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "categoryId": "ELEC666",
+  "productId": "PRD123456",
+  "name": "Electric Saw",
+  "unitPrice": 120.50
+}
+
+###
+
+POST https://localhost:7149/products/register
+Content-Type: application/json
+CorrelationId: 666
+Content-Length: 106
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "categoryId": "ELEC666",
+  "productId": "PRD123456",
+  "name": "Electric Saw",
+  "unitPrice": 120.50
+}
+
+###
+
+PUT https://localhost:7149/products/update
+Content-Type: application/json
+CorrelationId: 666
+Content-Length: 97
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+"categoryId": "ELEC666",
+"productId": "PRD123456",
+"name": "Electric Saw",
+"unitPrice": 99.90
+}
+
+###
+
+PUT https://localhost:7149/products/update
+Content-Type: application/json
+CorrelationId: 666
+Content-Length: 97
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+"categoryId": "ELEC666",
+"productId": "PRD123456",
+"name": "Electric Saw",
+"unitPrice": 99.90
+}
+
+###
+
+PUT https://localhost:7149/products/update
+Content-Type: application/json
+CorrelationId: 666
+Content-Length: 97
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+"categoryId": "ELEC666",
+"productId": "PRD123456",
+"name": "Electric Saw",
+"unitPrice": 99.90
+}
+
+###
+
+POST https://localhost:7149/products/register
+Content-Type: application/json
+CorrelationId: 666
+Content-Length: 106
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "categoryId": "ELEC666",
+  "productId": "PRD123456",
+  "name": "Electric Saw",
+  "unitPrice": 120.50
+}
+
+###
+
+PUT https://localhost:7149/products/update
+Content-Type: application/json
+CorrelationId: 666
+Content-Length: 97
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+"categoryId": "ELEC666",
+"productId": "PRD123456",
+"name": "Electric Saw",
+"unitPrice": 99.90
+}
+
+###
+
+PUT https://localhost:7149/products/update
+Content-Type: application/json
+CorrelationId: 666
+Content-Length: 97
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+"categoryId": "ELEC666",
+"productId": "PRD123456",
+"name": "Electric Saw",
+"unitPrice": 99.90
+}
+
+<> 2023-07-08T120127.500.txt
+
+###
+
+POST https://localhost:7149/products/register
+Content-Type: application/json
+CorrelationId: 666
+Content-Length: 106
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "categoryId": "ELEC666",
+  "productId": "PRD123456",
+  "name": "Electric Saw",
+  "unitPrice": 120.50
+}
+
+###
+
+POST https://localhost:7149/products/register
+Content-Type: application/json
+CorrelationId: 666
+Content-Length: 106
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "categoryId": "ELEC666",
+  "productId": "PRD123456",
+  "name": "Electric Saw",
+  "unitPrice": 120.50
+}
+
+###
+
+POST https://localhost:7149/products/register
+Content-Type: application/json
+CorrelationId: 666
+Content-Length: 106
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "categoryId": "ELEC666",
+  "productId": "PRD123456",
+  "name": "Electric Saw",
+  "unitPrice": 120.50
+}
+
+###
+
+POST https://localhost:7149/products/register
+Content-Type: application/json
+CorrelationId: 666
+Content-Length: 106
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "categoryId": "ELEC666",
+  "productId": "PRD123456",
+  "name": "Electric Saw",
+  "unitPrice": 120.50
+}
+
+###
+
+POST https://localhost:7149/products/register
+Content-Type: application/json
+CorrelationId: 666
+Content-Length: 108
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "//categoryId": "ELEC666",
+  "productId": "PRD123456",
+  "name": "Electric Saw",
+  "unitPrice": 120.50
+}
+
+<> 2023-07-08T115037.400.json
+
+###
+
 POST https://localhost:7149/products/register
 Content-Type: application/json
 CorrelationId: 666
@@ -596,271 +855,6 @@ Accept-Encoding: br,deflate,gzip,x-gzip
   "name": "Electric Saw",
   "unitPrice": 120.50
 }
-
-###
-
-POST https://localhost:7149/products/register
-Content-Type: application/json
-CorrelationId: 666
-Content-Length: 106
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "categoryId": "ELEC666",
-  "productId": "PRD123456",
-  "name": "Electric Saw",
-  "unitPrice": 120.50
-}
-
-<> 2023-07-08T100713.500.txt
-
-###
-
-POST https://localhost:7149/products/register
-Content-Type: application/json
-CorrelationId: 666
-Content-Length: 106
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "categoryId": "ELEC666",
-  "productId": "PRD123456",
-  "name": "Electric Saw",
-  "unitPrice": 120.50
-}
-
-<> 2023-07-08T100710.500.txt
-
-###
-
-POST https://localhost:7149/products/register
-Content-Type: application/json
-Content-Length: 106
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "categoryId": "ELEC666",
-  "productId": "PRD123456",
-  "name": "Electric Saw",
-  "unitPrice": 120.50
-}
-
-<> 2023-07-08T100655.400.txt
-
-###
-
-POST https://localhost:7149/products/register
-Content-Type: application/json
-Content-Length: 106
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "categoryId": "ELEC666",
-  "productId": "PRD123456",
-  "name": "Electric Saw",
-  "unitPrice": 120.50
-}
-
-<> 2023-07-08T095808.400.txt
-
-###
-
-POST https://localhost:7149/products/register
-Content-Type: application/json
-CorrelationId: 666
-Content-Length: 106
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "categoryId": "ELEC666",
-  "productId": "PRD123456",
-  "name": "Electric Saw",
-  "unitPrice": 120.50
-}
-
-###
-
-POST https://localhost:7149/products/register
-Content-Type: application/json
-CorrelationId: 666
-Content-Length: 106
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "categoryId": "ELEC666",
-  "productId": "PRD123456",
-  "name": "Electric Saw",
-  "unitPrice": 120.50
-}
-
-###
-
-POST https://localhost:7149/products/register
-Content-Type: application/json
-CorrelationId: 666
-Content-Length: 106
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "categoryId": "ELEC666",
-  "productId": "PRD123456",
-  "name": "Electric Saw",
-  "unitPrice": 120.50
-}
-
-###
-
-POST https://localhost:7149/products/register
-Content-Type: application/json
-CorrelationId: 666
-Content-Length: 106
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "categoryId": "ELEC666",
-  "productId": "PRD123456",
-  "name": "Electric Saw",
-  "unitPrice": 120.50
-}
-
-###
-
-POST https://localhost:7149/products/register
-Content-Type: application/json
-CorrelationId: 666
-Content-Length: 106
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "categoryId": "ELEC666",
-  "productId": "PRD123456",
-  "name": "Electric Saw",
-  "unitPrice": 120.50
-}
-
-###
-
-POST https://localhost:7149/products/register
-Content-Type: application/json
-CorrelationId: 666
-Content-Length: 106
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "categoryId": "ELEC666",
-  "productId": "PRD123456",
-  "name": "Electric Saw",
-  "unitPrice": 120.50
-}
-
-###
-
-POST https://localhost:7149/products/register
-Content-Type: application/json
-CorrelationId: 666
-Content-Length: 106
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "categoryId": "ELEC666",
-  "productId": "PRD123456",
-  "name": "Electric Saw",
-  "unitPrice": 120.50
-}
-
-###
-
-POST https://localhost:7149/products/register
-Content-Type: application/json
-CorrelationId: 666
-Content-Length: 106
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "categoryId": "ELEC666",
-  "productId": "PRD123456",
-  "name": "Electric Saw",
-  "unitPrice": 120.50
-}
-
-###
-
-POST https://localhost:7149/products/register
-Content-Type: application/json
-CorrelationId: 666
-Content-Length: 113
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "categoryId": "Electric Tools",
-  "productId": "PRD123456",
-  "name": "Electric Saw",
-  "unitPrice": 120.50
-}
-
-###
-
-POST https://localhost:7149/products/register
-Content-Type: application/json
-CorrelationId: 666
-Content-Length: 99
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "categoryId": "",
-  "productId": "PRD123456",
-  "name": "Electric Saw",
-  "unitPrice": 120.50
-}
-
-<> 2023-07-08T095646.400.json
-
-###
-
-POST https://localhost:7149/products/register
-Content-Type: application/json
-CorrelationId: 666
-Content-Length: 115
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "//categoryId": "Electric Tools",
-  "productId": "PRD123456",
-  "name": "Electric Saw",
-  "unitPrice": 120.50
-}
-
-<> 2023-07-08T095635.400.json
 
 ###
 

@@ -1,10 +1,24 @@
+### Register Product
 POST https://localhost:7149/products/register
 Content-Type: application/json
 CorrelationId: 666
 
 {
-  "//categoryId": "ELEC666",
+  "categoryId": "ELEC666",
   "productId": "PRD123456",
   "name": "Electric Saw",
   "unitPrice": 120.50
+}
+
+### Update Product Price
+
+PUT https://localhost:7149/products/update
+Content-Type: application/json
+CorrelationId: 666
+
+{
+"categoryId": "ELEC666",
+"productId": "PRD123456",
+"name": "Electric Saw",
+"unitPrice": 99.90
 }
