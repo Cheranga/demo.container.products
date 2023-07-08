@@ -3,7 +3,7 @@ Content-Type: application/json
 CorrelationId: 666
 
 {
-  "categoryId": "ELEC666",
+  "//categoryId": "ELEC666",
   "productId": "PRD123456",
   "name": "Electric Saw",
   "unitPrice": 120.50
