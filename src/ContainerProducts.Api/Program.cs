@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations;
 using ContainerProducts.Api.Features.RegisterProduct;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using ContainerProducts.Api.Features.RegisterProduct;
 using ContainerProducts.Api.Features.UpdateProduct;
 using Register = ContainerProducts.Api.Features.RegisterProduct;
 using Update = ContainerProducts.Api.Features.UpdateProduct;
@@ -18,9 +17,8 @@ routeGroupBuilder.MapPost(
     (
         [FromHeader] [Required] string correlationId,
         [FromBody] Register.DtoRequest request,
-        [FromServices] IValidator<Register.DtoRequest> validator,
         [FromServices] Register.DomainRequestHandler handler
-    ) => Register.RouteHandler.Handle(correlationId, request, validator, handler)
+    ) => Register.RouteHandler.Handle(correlationId,request,handler)
 );
 
 routeGroupBuilder.MapPut(

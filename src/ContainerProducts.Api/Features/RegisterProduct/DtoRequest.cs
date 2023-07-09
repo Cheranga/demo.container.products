@@ -9,9 +9,6 @@ public record DtoRequest(string CategoryId, string ProductId, string Name, decim
 {
     public string CorrelationId { get; set; } = Guid.NewGuid().ToString("N");
 
-    internal DomainRequest ToDomainRequest() =>
-        new(CorrelationId, CategoryId, ProductId, Name, UnitPrice);
-
     public sealed class DtoRequestValidator : ModelValidatorBase<DtoRequest>
     {
         public DtoRequestValidator()

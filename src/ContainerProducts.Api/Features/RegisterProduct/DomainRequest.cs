@@ -1,10 +1,14 @@
 using ContainerProducts.Api.Core;
+using ContainerProducts.Api.Core.Domain;
 using ContainerProducts.Api.Extensions;
 using FluentValidation;
+using FluentValidation.Results;
+using static ContainerProducts.Api.Core.DataAccess.CommandOperation;
+using static ContainerProducts.Api.Core.Domain.DomainOperation;
 
 namespace ContainerProducts.Api.Features.RegisterProduct;
 
-internal sealed record DomainRequest(
+public sealed record DomainRequest(
     string CorrelationId,
     string CategoryId,
     string ProductId,
@@ -21,14 +25,49 @@ internal sealed record DomainRequest(
             RuleFor(x => x.Name).NotNullOrEmpty();
             RuleFor(x => x.UnitPrice).GreaterThan(0);
         }
-    }    
+    }
 }
 
 internal sealed record DomainRequestHandler
 {
-    // TODO: specify what it can return
-    public Task RegisterProductAsync(DomainRequest request)
+    private readonly RegisterProductCommandHandler _commandHandler;
+    private readonly IValidator<DomainRequest> _domainValidator;
+    private readonly IValidator<DtoRequest> _dtoValidator;
+    private readonly ILogger<DomainRequestHandler> _logger;
+
+    public DomainRequestHandler(
+        IValidator<DtoRequest> dtoValidator,
+        IValidator<DomainRequest> domainValidator,
+        RegisterProductCommandHandler commandHandler,
+        ILogger<DomainRequestHandler> logger
+    )
     {
-        return Task.CompletedTask;
+        _dtoValidator = dtoValidator;
+        _domainValidator = domainValidator;
+        _commandHandler = commandHandler;
+        _logger = logger;
+    }
+    // TODO: specify what it can return
+    public async Task<
+        DomainResponse<ValidationFailedOperation, FailedOperation, SuccessOperation>
+    > RegisterProductAsync(DtoRequest request, CancellationToken token)
+    {
+        var validationResult = await _dtoValidator.ValidateAsync(request, token);
+        if (!validationResult.IsValid)
+            return ValidationFailedOperation.New(validationResult);
+
+        var domainRequest = request.ToDomainRequest();
+        validationResult = await _domainValidator.ValidateAsync(domainRequest, token);
+        if (!validationResult.IsValid)
+            return ValidationFailedOperation.New(validationResult);
+
+        var command = domainRequest.ToCommand();
+        var operation = await _commandHandler.ExecuteAsync(command, token);
+        return operation.Result switch
+        {
+            CommandFailedOperation f
+                => FailedOperation.New(f.ErrorCode, f.ErrorMessage, f.Exception),
+            _ => SuccessOperation.New()
+        };
     }
 }
