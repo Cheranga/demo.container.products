@@ -1,4 +1,4 @@
-namespace ContainerProducts.Api.Features.RegisterProduct;
+namespace ContainerProducts.Api.Features.UpdateProduct;
 
 internal sealed record UpdateProductPriceCommand(
     string CorrelationId,

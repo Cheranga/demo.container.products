@@ -10,9 +10,9 @@ internal static class RouteHandler
 {
     public static Func<
         string,
-        DtoRequest,
-        IValidator<DtoRequest>,
-        DomainRequestHandler,
+        UpdateProductRequest,
+        IValidator<UpdateProductRequest>,
+        UpdateProductRequest.Handler,
         Task<Results<ValidationProblem, ProductUpdated>>
     > Handle =>
         async (correlationId, request, validator, handler) =>
@@ -24,7 +24,7 @@ internal static class RouteHandler
             if (!validationResult.IsValid)
                 return validationResult.ToValidationErrorResponse("Update Product Price");
 
-            await handler.UpdateProductAsync(request.ToDomainRequest());
+            await handler.ExecuteAsync(request, token);
 
             return ProductUpdated(correlationId, request.CategoryId, request.ProductId);
         };

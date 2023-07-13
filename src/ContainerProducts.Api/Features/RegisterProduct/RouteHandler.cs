@@ -1,7 +1,5 @@
-﻿using ContainerProducts.Api.Core.Domain;
-using ContainerProducts.Api.CustomResponses;
+﻿using ContainerProducts.Api.CustomResponses;
 using ContainerProducts.Api.Extensions;
-using FluentValidation;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using static ContainerProducts.Api.CustomResponses.Factory;
@@ -14,8 +12,8 @@ internal class RouteHandler
 {
     public static Func<
         string,
-        DtoRequest,
-        DomainRequestHandler,
+        RegisterProductRequest,
+        RegisterProductRequest.Handler,
         Task<Results<ValidationProblem, ProblemHttpResult, ProductCreated>>
     > Handle =>
         async (correlationId, request, handler) =>
@@ -23,7 +21,7 @@ internal class RouteHandler
             var token = new CancellationToken();
             request.CorrelationId = correlationId;
 
-            var response = await handler.RegisterProductAsync(request, token);
+            var response = await handler.ExecuteAsync(request, token);
             return response.Result switch
             {
                 ValidationFailedOperation vf
