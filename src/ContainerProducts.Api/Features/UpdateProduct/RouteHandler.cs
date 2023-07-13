@@ -9,16 +9,14 @@ namespace ContainerProducts.Api.Features.UpdateProduct;
 internal static class RouteHandler
 {
     public static Func<
-        string,
         UpdateProductRequest,
         IValidator<UpdateProductRequest>,
         UpdateProductRequest.Handler,
         Task<Results<ValidationProblem, ProductUpdated>>
     > Handle =>
-        async (correlationId, request, validator, handler) =>
+        async (request, validator, handler) =>
         {
             var token = new CancellationToken();
-            request.CorrelationId = correlationId;
 
             var validationResult = await validator.ValidateAsync(request, token);
             if (!validationResult.IsValid)
@@ -26,6 +24,6 @@ internal static class RouteHandler
 
             await handler.ExecuteAsync(request, token);
 
-            return ProductUpdated(correlationId, request.CategoryId, request.ProductId);
+            return ProductUpdated(request.CorrelationId, request.CategoryId, request.ProductId);
         };
 }

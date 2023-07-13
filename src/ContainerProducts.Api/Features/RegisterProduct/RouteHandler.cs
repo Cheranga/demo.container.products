@@ -8,18 +8,16 @@ using static ContainerProducts.Api.Core.Domain.DomainOperation;
 
 namespace ContainerProducts.Api.Features.RegisterProduct;
 
-internal class RouteHandler
+internal static class RouteHandler
 {
     public static Func<
-        string,
         RegisterProductRequest,
         RegisterProductRequest.Handler,
         Task<Results<ValidationProblem, ProblemHttpResult, ProductCreated>>
     > Handle =>
-        async (correlationId, request, handler) =>
+        async (request, handler) =>
         {
             var token = new CancellationToken();
-            request.CorrelationId = correlationId;
 
             var response = await handler.ExecuteAsync(request, token);
             return response.Result switch
@@ -27,7 +25,7 @@ internal class RouteHandler
                 ValidationFailedOperation vf
                     => vf.Failure.ToValidationErrorResponse("Invalid Product Registration"),
                 FailedOperation f => ToServerError(f),
-                _ => ProductCreated(correlationId, request.CategoryId, request.ProductId)
+                _ => ProductCreated(request.CorrelationId, request.CategoryId, request.ProductId)
             };
         };
 

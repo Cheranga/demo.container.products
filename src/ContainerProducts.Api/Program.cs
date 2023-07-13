@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using ContainerProducts.Api.Features.RegisterProduct;
+using ContainerProducts.Api.Features.UpdateProduct;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using ContainerProducts.Api.Features.UpdateProduct;
 using Register = ContainerProducts.Api.Features.RegisterProduct;
 using Update = ContainerProducts.Api.Features.UpdateProduct;
 
@@ -21,7 +21,7 @@ routeGroupBuilder.MapPost(
         [FromHeader] [Required] string correlationId,
         [FromBody] RegisterProductRequest request,
         [FromServices] RegisterProductRequest.Handler handler
-    ) => Register.RouteHandler.Handle(correlationId, request, handler)
+    ) => Register.RouteHandler.Handle(request with { CorrelationId = correlationId }, handler)
 );
 
 routeGroupBuilder.MapPut(
@@ -31,7 +31,15 @@ routeGroupBuilder.MapPut(
         [FromBody] UpdateProductRequest request,
         [FromServices] IValidator<UpdateProductRequest> validator,
         [FromServices] UpdateProductRequest.Handler handler
-    ) => Update.RouteHandler.Handle(correlationId, request, validator, handler)
+    ) =>
+        Update.RouteHandler.Handle(
+            request with
+            {
+                CorrelationId = correlationId
+            },
+            validator,
+            handler
+        )
 );
 
 app.MapGet("/", () => "Hello World!");
