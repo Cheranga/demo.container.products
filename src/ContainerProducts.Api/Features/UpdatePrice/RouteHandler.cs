@@ -4,14 +4,14 @@ using FluentValidation;
 using Microsoft.AspNetCore.Http.HttpResults;
 using static ContainerProducts.Api.CustomResponses.Factory;
 
-namespace ContainerProducts.Api.Features.UpdateProduct;
+namespace ContainerProducts.Api.Features.UpdatePrice;
 
 internal static class RouteHandler
 {
     public static Func<
-        UpdateProductRequest,
-        IValidator<UpdateProductRequest>,
-        UpdateProductRequest.Handler,
+        UpdateProductPriceRequest,
+        IValidator<UpdateProductPriceRequest>,
+        UpdateProductPriceRequestHandler,
         Task<Results<ValidationProblem, ProductUpdated>>
     > Handle =>
         async (request, validator, handler) =>

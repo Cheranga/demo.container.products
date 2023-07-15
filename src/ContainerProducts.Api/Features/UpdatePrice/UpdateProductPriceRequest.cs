@@ -1,35 +1,36 @@
 using ContainerProducts.Api.Core;
 using ContainerProducts.Api.Core.DataAccess;
 using ContainerProducts.Api.Core.Domain;
+using ContainerProducts.Api.Extensions;
 using FluentValidation;
 
-namespace ContainerProducts.Api.Features.RegisterProduct;
+namespace ContainerProducts.Api.Features.UpdatePrice;
 
-public record RegisterProductRequest(
-    string CategoryId,
-    string ProductId,
-    string Name,
-    decimal UnitPrice
-) : IRequest<RegisterProductRequest, RegisterProductRequestValidator, RegisterProductRequestHandler>
+public record UpdateProductPriceRequest(string CategoryId, string ProductId, decimal UnitPrice)
+    : IRequest<
+        UpdateProductPriceRequest,
+        UpdateProductPriceRequestValidator,
+        UpdateProductPriceRequestHandler
+    >
 {
     public string CorrelationId { get; set; } = Guid.NewGuid().ToString("N");
 }
 
-internal class RegisterProductRequestHandler : IRequestHandler<RegisterProductRequest>
+internal sealed record UpdateProductPriceRequestHandler : IRequestHandler<UpdateProductPriceRequest>
 {
-    private readonly RegisterProductCommandHandler _commandHandler;
-    private readonly IValidator<RegisterProductRequest> _validator;
+    private readonly IValidator<UpdateProductPriceRequest> _validator;
+    private readonly UpdateProductPriceCommandHandler _commandHandler;
 
-    public RegisterProductRequestHandler(
-        IValidator<RegisterProductRequest> validator,
-        RegisterProductCommandHandler commandHandler
+    public UpdateProductPriceRequestHandler(
+        IValidator<UpdateProductPriceRequest> validator,
+        UpdateProductPriceCommandHandler commandHandler
     )
     {
         _validator = validator;
         _commandHandler = commandHandler;
     }
 
-    public async Task<DR> ExecuteAsync(RegisterProductRequest request, CancellationToken token)
+    public async Task<DR> ExecuteAsync(UpdateProductPriceRequest request, CancellationToken token)
     {
         var validationResult = await _validator.ValidateAsync(request, token);
         if (!validationResult.IsValid)
@@ -43,8 +44,8 @@ internal class RegisterProductRequestHandler : IRequestHandler<RegisterProductRe
         };
     }
 
-    private static RegisterProductCommand ToCommand(RegisterProductRequest request) =>
-        new(request.CorrelationId, request.CategoryId, request.Name, request.UnitPrice);
+    private static UpdateProductPriceCommand ToCommand(UpdateProductPriceRequest request) =>
+        new(request.CorrelationId, request.CategoryId, request.ProductId, request.UnitPrice);
 
     private static DomainOperation.FailedOperation ToFailedOperation(
         CommandOperation.CommandFailedOperation operation

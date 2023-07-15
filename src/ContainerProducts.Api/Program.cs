@@ -1,10 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using ContainerProducts.Api.Features.RegisterProduct;
-using ContainerProducts.Api.Features.UpdateProduct;
+using ContainerProducts.Api.Features.UpdatePrice;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Register = ContainerProducts.Api.Features.RegisterProduct;
-using Update = ContainerProducts.Api.Features.UpdateProduct;
+using RouteHandler = ContainerProducts.Api.Features.UpdatePrice.RouteHandler;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services
@@ -20,7 +20,7 @@ routeGroupBuilder.MapPost(
     (
         [FromHeader] [Required] string correlationId,
         [FromBody] RegisterProductRequest request,
-        [FromServices] RegisterProductRequest.Handler handler
+        [FromServices] RegisterProductRequestHandler handler
     ) => Register.RouteHandler.Handle(request with { CorrelationId = correlationId }, handler)
 );
 
@@ -28,11 +28,11 @@ routeGroupBuilder.MapPut(
     "update",
     (
         [FromHeader] [Required] string correlationId,
-        [FromBody] UpdateProductRequest request,
-        [FromServices] IValidator<UpdateProductRequest> validator,
-        [FromServices] UpdateProductRequest.Handler handler
+        [FromBody] UpdateProductPriceRequest request,
+        [FromServices] IValidator<UpdateProductPriceRequest> validator,
+        [FromServices] UpdateProductPriceRequestHandler handler
     ) =>
-        Update.RouteHandler.Handle(
+        RouteHandler.Handle(
             request with
             {
                 CorrelationId = correlationId

@@ -1,17 +1,10 @@
 using ContainerProducts.Api.Core.Domain;
 using FluentValidation;
-
 namespace ContainerProducts.Api.Core;
 
 public interface IRequestHandler<in TRequest>
 {
-    Task<
-        DomainResponse<
-            DomainOperation.ValidationFailedOperation,
-            DomainOperation.FailedOperation,
-            DomainOperation.SuccessOperation
-        >
-    > ExecuteAsync(TRequest request, CancellationToken token);
+    Task<DR> ExecuteAsync(TRequest request, CancellationToken token);
 }
 
 public interface IRequestHandler<in TRequest, TResponse>

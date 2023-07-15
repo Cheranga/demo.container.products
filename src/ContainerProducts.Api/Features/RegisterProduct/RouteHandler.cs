@@ -12,7 +12,7 @@ internal static class RouteHandler
 {
     public static Func<
         RegisterProductRequest,
-        RegisterProductRequest.Handler,
+        RegisterProductRequestHandler,
         Task<Results<ValidationProblem, ProblemHttpResult, ProductCreated>>
     > Handle =>
         async (request, handler) =>

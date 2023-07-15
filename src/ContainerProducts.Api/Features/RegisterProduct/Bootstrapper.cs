@@ -6,6 +6,6 @@ public static class Bootstrapper
 {
     public static IServiceCollection UseRegisterProduct(this IServiceCollection services) =>
         services
-            .AddScoped<RegisterProductRequest.Handler>()
+            .AddScoped<RegisterProductRequestHandler>()
             .AddScoped<RegisterProductCommandHandler>();
 }
