@@ -1,14 +1,16 @@
 using System.ComponentModel.DataAnnotations;
 using ContainerProducts.Api.Features.RegisterProduct;
+using ContainerProducts.Api.Features.UpdatePrice;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using ContainerProducts.Api.Features.RegisterProduct;
-using ContainerProducts.Api.Features.UpdateProduct;
 using Register = ContainerProducts.Api.Features.RegisterProduct;
-using Update = ContainerProducts.Api.Features.UpdateProduct;
+using RouteHandler = ContainerProducts.Api.Features.UpdatePrice.RouteHandler;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.UseRegisterProduct().UseUpdateProduct();
+builder.Services
+    .AddValidatorsFromAssembly(typeof(Program).Assembly)
+    .UseRegisterProduct()
+    .UseUpdateProduct();
 
 var app = builder.Build();
 
@@ -17,20 +19,27 @@ routeGroupBuilder.MapPost(
     "register",
     (
         [FromHeader] [Required] string correlationId,
-        [FromBody] Register.DtoRequest request,
-        [FromServices] IValidator<Register.DtoRequest> validator,
-        [FromServices] Register.DomainRequestHandler handler
-    ) => Register.RouteHandler.Handle(correlationId, request, validator, handler)
+        [FromBody] RegisterProductRequest request,
+        [FromServices] RegisterProductRequestHandler handler
+    ) => Register.RouteHandler.Handle(request with { CorrelationId = correlationId }, handler)
 );
 
 routeGroupBuilder.MapPut(
     "update",
     (
         [FromHeader] [Required] string correlationId,
-        [FromBody] Update.DtoRequest request,
-        [FromServices] IValidator<Update.DtoRequest> validator,
-        [FromServices] Update.DomainRequestHandler handler
-    ) => Update.RouteHandler.Handle(correlationId, request, validator, handler)
+        [FromBody] UpdateProductPriceRequest request,
+        [FromServices] IValidator<UpdateProductPriceRequest> validator,
+        [FromServices] UpdateProductPriceRequestHandler handler
+    ) =>
+        RouteHandler.Handle(
+            request with
+            {
+                CorrelationId = correlationId
+            },
+            validator,
+            handler
+        )
 );
 
 app.MapGet("/", () => "Hello World!");

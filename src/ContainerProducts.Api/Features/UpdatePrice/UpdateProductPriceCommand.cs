@@ -1,19 +1,19 @@
 using ContainerProducts.Api.Core.DataAccess;
 using static ContainerProducts.Api.Core.DataAccess.CommandOperation;
 
-namespace ContainerProducts.Api.Features.RegisterProduct;
+namespace ContainerProducts.Api.Features.UpdatePrice;
 
-internal sealed record RegisterProductCommand(
+internal sealed record UpdateProductPriceCommand(
     string CorrelationId,
     string CategoryId,
-    string Name,
+    string ProductId,
     decimal UnitPrice
 );
 
-internal record RegisterProductCommandHandler
+internal record UpdateProductPriceCommandHandler
 {
     public Task<CommandResponse<CommandFailedOperation, CommandSuccessOperation>> ExecuteAsync(
-        RegisterProductCommand command,
+        UpdateProductPriceCommand command,
         CancellationToken token
     )
     {
