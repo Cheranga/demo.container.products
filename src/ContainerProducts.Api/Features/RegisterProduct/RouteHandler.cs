@@ -2,7 +2,6 @@
 using ContainerProducts.Api.Extensions;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using static ContainerProducts.Api.CustomResponses.Factory;
 using static Microsoft.AspNetCore.Http.TypedResults;
 using static ContainerProducts.Api.Core.Domain.DomainOperation;
 
@@ -25,7 +24,7 @@ internal static class RouteHandler
                 ValidationFailedOperation vf
                     => vf.Failure.ToValidationErrorResponse("Invalid Product Registration"),
                 FailedOperation f => ToServerError(f),
-                _ => ProductCreated(request.CorrelationId, request.CategoryId, request.ProductId)
+                _ => new ProductCreated(request.CorrelationId, request.CategoryId, request.ProductId)
             };
         };
 

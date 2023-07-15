@@ -49,6 +49,108 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 
 ###
 
+POST https://localhost:7149/products/register
+Content-Type: application/json
+CorrelationId: 666
+Content-Length: 106
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "categoryId": "ELEC666",
+  "productId": "PRD123456",
+  "name": "Electric Saw",
+  "unitPrice": 120.50
+}
+
+###
+
+POST https://localhost:7149/products/register
+Content-Type: application/json
+CorrelationId: 666
+Content-Length: 106
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "categoryId": "ELEC666",
+  "productId": "PRD123456",
+  "name": "Electric Saw",
+  "unitPrice": 120.50
+}
+
+###
+
+POST https://localhost:7149/products/register
+Content-Type: application/json
+CorrelationId: 666
+Content-Length: 106
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "categoryId": "ELEC666",
+  "productId": "PRD123456",
+  "name": "Electric Saw",
+  "unitPrice": 120.50
+}
+
+###
+
+PUT https://localhost:7149/products/update
+Content-Type: application/json
+CorrelationId: 666
+Content-Length: 97
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+"categoryId": "ELEC666",
+"productId": "PRD123456",
+"name": "Electric Saw",
+"unitPrice": 99.90
+}
+
+###
+
+PUT https://localhost:7149/products/update
+Content-Type: application/json
+CorrelationId: 666
+Content-Length: 97
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+"categoryId": "ELEC666",
+"productId": "PRD123456",
+"name": "Electric Saw",
+"unitPrice": 99.90
+}
+
+###
+
+PUT https://localhost:7149/products/update
+Content-Type: application/json
+CorrelationId: 666
+Content-Length: 97
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+"categoryId": "ELEC666",
+"productId": "PRD123456",
+"name": "Electric Saw",
+"unitPrice": 99.90
+}
+
+###
+
 PUT https://localhost:7149/products/update
 Content-Type: application/json
 CorrelationId: 666

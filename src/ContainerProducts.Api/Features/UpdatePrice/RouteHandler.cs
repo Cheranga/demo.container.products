@@ -2,7 +2,6 @@
 using ContainerProducts.Api.Extensions;
 using FluentValidation;
 using Microsoft.AspNetCore.Http.HttpResults;
-using static ContainerProducts.Api.CustomResponses.Factory;
 
 namespace ContainerProducts.Api.Features.UpdatePrice;
 
@@ -24,6 +23,6 @@ internal static class RouteHandler
 
             await handler.ExecuteAsync(request, token);
 
-            return ProductUpdated(request.CorrelationId, request.CategoryId, request.ProductId);
+            return new ProductUpdated(request.CorrelationId, request.CategoryId, request.ProductId);
         };
 }
