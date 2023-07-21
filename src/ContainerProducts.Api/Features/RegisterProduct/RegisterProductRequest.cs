@@ -1,7 +1,8 @@
+using System.Text.Json.Serialization;
 using ContainerProducts.Api.Core;
-using ContainerProducts.Api.Core.DataAccess;
 using ContainerProducts.Api.Core.Domain;
 using FluentValidation;
+using Infrastructure.Messaging.Azure.Storage.Queues;
 
 namespace ContainerProducts.Api.Features.RegisterProduct;
 
@@ -18,15 +19,18 @@ public record RegisterProductRequest(
 internal class RegisterProductRequestHandler : IRequestHandler<RegisterProductRequest>
 {
     private readonly RegisterProductCommandHandler _commandHandler;
+    private readonly IMessagePublisher _messagePublisher;
     private readonly IValidator<RegisterProductRequest> _validator;
 
     public RegisterProductRequestHandler(
         IValidator<RegisterProductRequest> validator,
-        RegisterProductCommandHandler commandHandler
+        RegisterProductCommandHandler commandHandler,
+        IMessagePublisher messagePublisher
     )
     {
         _validator = validator;
         _commandHandler = commandHandler;
+        _messagePublisher = messagePublisher;
     }
 
     public async Task<DR> ExecuteAsync(RegisterProductRequest request, CancellationToken token)
@@ -35,23 +39,12 @@ internal class RegisterProductRequestHandler : IRequestHandler<RegisterProductRe
         if (!validationResult.IsValid)
             return DomainOperation.ValidationFailedOperation.New(validationResult);
 
-        var operation = await _commandHandler.ExecuteAsync(ToCommand(request), token);
-        return operation.Result switch
+        var op = await _messagePublisher.PublishAsync("register-products", () => "", token);
+        return op.Operation switch
         {
-            CommandOperation.CommandFailedOperation f => ToFailedOperation(f),
+            QueueOperation.FailedOperation f
+                => DomainOperation.FailedOperation.New(f.ErrorCode, f.ErrorMessage, f.Exception),
             _ => DomainOperation.SuccessOperation.New()
         };
     }
-
-    private static RegisterProductCommand ToCommand(RegisterProductRequest request) =>
-        new(request.CorrelationId, request.CategoryId, request.Name, request.UnitPrice);
-
-    private static DomainOperation.FailedOperation ToFailedOperation(
-        CommandOperation.CommandFailedOperation operation
-    ) =>
-        DomainOperation.FailedOperation.New(
-            operation.ErrorCode,
-            operation.ErrorMessage,
-            operation.Exception
-        );
 }

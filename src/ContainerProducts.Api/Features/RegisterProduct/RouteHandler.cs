@@ -4,16 +4,17 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using static Microsoft.AspNetCore.Http.TypedResults;
 using static ContainerProducts.Api.Core.Domain.DomainOperation;
+using PC = Microsoft.AspNetCore.Http.HttpResults.Results<
+    Microsoft.AspNetCore.Http.HttpResults.ValidationProblem,
+    Microsoft.AspNetCore.Http.HttpResults.ProblemHttpResult,
+    ContainerProducts.Api.CustomResponses.ProductCreated
+>;
 
 namespace ContainerProducts.Api.Features.RegisterProduct;
 
 internal static class RouteHandler
 {
-    public static Func<
-        RegisterProductRequest,
-        RegisterProductRequestHandler,
-        Task<Results<ValidationProblem, ProblemHttpResult, ProductCreated>>
-    > Handle =>
+    public static Func<RegisterProductRequest, RegisterProductRequestHandler, Task<PC>> Handle =>
         async (request, handler) =>
         {
             var token = new CancellationToken();
@@ -24,7 +25,12 @@ internal static class RouteHandler
                 ValidationFailedOperation vf
                     => vf.Failure.ToValidationErrorResponse("Invalid Product Registration"),
                 FailedOperation f => ToServerError(f),
-                _ => new ProductCreated(request.CorrelationId, request.CategoryId, request.ProductId)
+                _
+                    => new ProductCreated(
+                        request.CorrelationId,
+                        request.CategoryId,
+                        request.ProductId
+                    )
             };
         };
 

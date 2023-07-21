@@ -11,4 +11,8 @@
       <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.6.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Infrastructure.Messaging.Azure.Storage.Queues\Infrastructure.Messaging.Azure.Storage.Queues.csproj" />
+    </ItemGroup>
+
 </Project>

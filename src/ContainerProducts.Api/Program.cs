@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using ContainerProducts.Api.Features.RegisterProduct;
 using ContainerProducts.Api.Features.UpdatePrice;
 using FluentValidation;
+using Infrastructure.Messaging.Azure.Storage.Queues;
 using Microsoft.AspNetCore.Mvc;
 using Register = ContainerProducts.Api.Features.RegisterProduct;
 using RouteHandler = ContainerProducts.Api.Features.UpdatePrice.RouteHandler;
@@ -9,8 +10,11 @@ using RouteHandler = ContainerProducts.Api.Features.UpdatePrice.RouteHandler;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddValidatorsFromAssembly(typeof(Program).Assembly)
+    // TODO: make it feature toggled
+    .UseInMemoryMessaging()
     .UseRegisterProduct()
     .UseUpdateProduct();
+
 
 var app = builder.Build();
 
