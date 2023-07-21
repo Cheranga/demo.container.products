@@ -1,5 +1,6 @@
 using ContainerProducts.Api.Core.Domain;
 using FluentValidation;
+
 namespace ContainerProducts.Api.Core;
 
 public interface IRequestHandler<in TRequest>

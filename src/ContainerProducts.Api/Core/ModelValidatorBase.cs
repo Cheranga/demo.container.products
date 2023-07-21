@@ -3,7 +3,8 @@ using FluentValidation.Results;
 
 namespace ContainerProducts.Api.Core;
 
-public class ModelValidatorBase<T> : AbstractValidator<T> where T : class
+public class ModelValidatorBase<T> : AbstractValidator<T>
+    where T : class
 {
     protected ModelValidatorBase() => RuleLevelCascadeMode = CascadeMode.Stop;
 

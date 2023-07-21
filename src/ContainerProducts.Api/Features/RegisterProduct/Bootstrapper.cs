@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace ContainerProducts.Api.Features.RegisterProduct;
+﻿namespace ContainerProducts.Api.Features.RegisterProduct;
 
 public static class Bootstrapper
 {

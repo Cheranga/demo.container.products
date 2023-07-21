@@ -15,7 +15,6 @@ builder.Services
     .UseRegisterProduct()
     .UseUpdateProduct();
 
-
 var app = builder.Build();
 
 var routeGroupBuilder = app.MapGroup("products");
@@ -35,15 +34,7 @@ routeGroupBuilder.MapPut(
         [FromBody] UpdateProductPriceRequest request,
         [FromServices] IValidator<UpdateProductPriceRequest> validator,
         [FromServices] UpdateProductPriceRequestHandler handler
-    ) =>
-        RouteHandler.Handle(
-            request with
-            {
-                CorrelationId = correlationId
-            },
-            validator,
-            handler
-        )
+    ) => RouteHandler.Handle(request with { CorrelationId = correlationId }, validator, handler)
 );
 
 app.MapGet("/", () => "Hello World!");

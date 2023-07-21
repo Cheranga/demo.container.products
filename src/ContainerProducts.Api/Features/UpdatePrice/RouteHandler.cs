@@ -1,7 +1,11 @@
 ﻿using ContainerProducts.Api.CustomResponses;
 using ContainerProducts.Api.Extensions;
 using FluentValidation;
-using Microsoft.AspNetCore.Http.HttpResults;
+using PU = Microsoft.AspNetCore.Http.HttpResults.Results<
+    Microsoft.AspNetCore.Http.HttpResults.ValidationProblem,
+    Microsoft.AspNetCore.Http.HttpResults.ProblemHttpResult,
+    ContainerProducts.Api.CustomResponses.ProductUpdated
+>;
 
 namespace ContainerProducts.Api.Features.UpdatePrice;
 
@@ -11,7 +15,7 @@ internal static class RouteHandler
         UpdateProductPriceRequest,
         IValidator<UpdateProductPriceRequest>,
         UpdateProductPriceRequestHandler,
-        Task<Results<ValidationProblem, ProductUpdated>>
+        Task<PU>
     > Handle =>
         async (request, validator, handler) =>
         {

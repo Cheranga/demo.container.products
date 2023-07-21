@@ -29,10 +29,7 @@ public abstract record QueueOperation
 
     public record SuccessOperation : QueueOperation
     {
-        private SuccessOperation()
-        {
-            
-        }
+        private SuccessOperation() { }
 
         public static SuccessOperation New() => new();
     }

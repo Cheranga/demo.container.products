@@ -8,10 +8,7 @@ public abstract record DomainOperation
 
     public sealed record SuccessOperation : DomainOperation
     {
-        private SuccessOperation()
-        {
-            
-        }
+        private SuccessOperation() { }
 
         internal static SuccessOperation New() => new();
     }

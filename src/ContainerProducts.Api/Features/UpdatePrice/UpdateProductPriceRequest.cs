@@ -1,7 +1,6 @@
 using ContainerProducts.Api.Core;
 using ContainerProducts.Api.Core.DataAccess;
 using ContainerProducts.Api.Core.Domain;
-using ContainerProducts.Api.Extensions;
 using FluentValidation;
 
 namespace ContainerProducts.Api.Features.UpdatePrice;

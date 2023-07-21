@@ -1,4 +1,3 @@
-using System.Text.Json.Serialization;
 using ContainerProducts.Api.Core;
 using ContainerProducts.Api.Core.Domain;
 using FluentValidation;
