@@ -2,13 +2,13 @@
 
 namespace ContainerProducts.Api.CustomResponses;
 
-internal class ProductCreated : IResult
+internal class ProductUpdatedResponse : IResult
 {
     private readonly string _categoryId;
     private readonly string _correlationId;
     private readonly string _productId;
 
-    public ProductCreated(string correlationId, string categoryId, string productId)
+    public ProductUpdatedResponse(string correlationId, string categoryId, string productId)
     {
         _correlationId = correlationId;
         _categoryId = categoryId;
@@ -19,7 +19,7 @@ internal class ProductCreated : IResult
     {
         httpContext.Response.Headers.Location = $"api/products/{_categoryId}/{_productId}";
         httpContext.Response.Headers.Add("CorrelationId", _correlationId);
-        httpContext.Response.StatusCode = (int)HttpStatusCode.Created;
+        httpContext.Response.StatusCode = (int)HttpStatusCode.Accepted;
         return Task.CompletedTask;
     }
 }

@@ -1,7 +1,8 @@
+using System.Text.Json;
 using ContainerProducts.Api.Core;
-using ContainerProducts.Api.Core.DataAccess;
 using ContainerProducts.Api.Core.Domain;
 using FluentValidation;
+using Infrastructure.Messaging.Azure.Storage.Queues;
 
 namespace ContainerProducts.Api.Features.UpdatePrice;
 
@@ -17,41 +18,44 @@ public record UpdateProductPriceRequest(string CategoryId, string ProductId, dec
 
 internal sealed record UpdateProductPriceRequestHandler : IRequestHandler<UpdateProductPriceRequest>
 {
+    private readonly IMessagePublisher _messagePublisher;
     private readonly IValidator<UpdateProductPriceRequest> _validator;
-    private readonly UpdateProductPriceCommandHandler _commandHandler;
 
     public UpdateProductPriceRequestHandler(
         IValidator<UpdateProductPriceRequest> validator,
-        UpdateProductPriceCommandHandler commandHandler
+        IMessagePublisher messagePublisher
     )
     {
         _validator = validator;
-        _commandHandler = commandHandler;
+        _messagePublisher = messagePublisher;
     }
 
-    public async Task<DR> ExecuteAsync(UpdateProductPriceRequest request, CancellationToken token)
+    public async Task<DR> ExecuteAsync(
+        UpdateProductPriceRequest request,
+        CancellationToken token = new()
+    )
     {
         var validationResult = await _validator.ValidateAsync(request, token);
         if (!validationResult.IsValid)
             return DomainOperation.ValidationFailedOperation.New(validationResult);
 
-        var operation = await _commandHandler.ExecuteAsync(ToCommand(request), token);
-        return operation.Result switch
+        var op = await _messagePublisher.PublishAsync(
+            "update-products",
+            GetMessageContent(request),
+            token
+        );
+        return op.Operation switch
         {
-            CommandOperation.CommandFailedOperation f => ToFailedOperation(f),
+            QueueOperation.FailedOperation f
+                => DomainOperation.FailedOperation.New(f.ErrorCode, f.ErrorMessage, f.Exception),
             _ => DomainOperation.SuccessOperation.New()
         };
     }
 
-    private static UpdateProductPriceCommand ToCommand(UpdateProductPriceRequest request) =>
-        new(request.CorrelationId, request.CategoryId, request.ProductId, request.UnitPrice);
-
-    private static DomainOperation.FailedOperation ToFailedOperation(
-        CommandOperation.CommandFailedOperation operation
-    ) =>
-        DomainOperation.FailedOperation.New(
-            operation.ErrorCode,
-            operation.ErrorMessage,
-            operation.Exception
-        );
+    private static Func<string> GetMessageContent(UpdateProductPriceRequest request) =>
+        () =>
+            JsonSerializer.Serialize(
+                request,
+                new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }
+            );
 }

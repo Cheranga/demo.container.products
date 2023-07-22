@@ -1,3 +1,4 @@
+using System.Text.Json;
 using ContainerProducts.Api.Core;
 using ContainerProducts.Api.Core.Domain;
 using FluentValidation;
@@ -17,28 +18,32 @@ public record RegisterProductRequest(
 
 internal class RegisterProductRequestHandler : IRequestHandler<RegisterProductRequest>
 {
-    private readonly RegisterProductCommandHandler _commandHandler;
     private readonly IMessagePublisher _messagePublisher;
     private readonly IValidator<RegisterProductRequest> _validator;
 
     public RegisterProductRequestHandler(
         IValidator<RegisterProductRequest> validator,
-        RegisterProductCommandHandler commandHandler,
         IMessagePublisher messagePublisher
     )
     {
         _validator = validator;
-        _commandHandler = commandHandler;
         _messagePublisher = messagePublisher;
     }
 
-    public async Task<DR> ExecuteAsync(RegisterProductRequest request, CancellationToken token)
+    public async Task<DR> ExecuteAsync(
+        RegisterProductRequest request,
+        CancellationToken token = new()
+    )
     {
         var validationResult = await _validator.ValidateAsync(request, token);
         if (!validationResult.IsValid)
             return DomainOperation.ValidationFailedOperation.New(validationResult);
 
-        var op = await _messagePublisher.PublishAsync("register-products", () => "", token);
+        var op = await _messagePublisher.PublishAsync(
+            "register-products",
+            GetMessageContent(request),
+            token
+        );
         return op.Operation switch
         {
             QueueOperation.FailedOperation f
@@ -46,4 +51,11 @@ internal class RegisterProductRequestHandler : IRequestHandler<RegisterProductRe
             _ => DomainOperation.SuccessOperation.New()
         };
     }
+
+    private static Func<string> GetMessageContent(RegisterProductRequest request) =>
+        () =>
+            JsonSerializer.Serialize(
+                request,
+                new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }
+            );
 }

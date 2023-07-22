@@ -5,7 +5,7 @@ using FluentValidation;
 using Infrastructure.Messaging.Azure.Storage.Queues;
 using Microsoft.AspNetCore.Mvc;
 using Register = ContainerProducts.Api.Features.RegisterProduct;
-using RouteHandler = ContainerProducts.Api.Features.UpdatePrice.RouteHandler;
+using Update = ContainerProducts.Api.Features.UpdatePrice;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services
@@ -23,8 +23,17 @@ routeGroupBuilder.MapPost(
     (
         [FromHeader] [Required] string correlationId,
         [FromBody] RegisterProductRequest request,
-        [FromServices] RegisterProductRequestHandler handler
-    ) => Register.RouteHandler.Handle(request with { CorrelationId = correlationId }, handler)
+        [FromServices] IValidator<RegisterProductRequest> validator,
+        [FromServices] IMessagePublisher publisher
+    ) =>
+        Register.RouteHandler.Handle(
+            request with
+            {
+                CorrelationId = correlationId
+            },
+            validator,
+            publisher
+        )
 );
 
 routeGroupBuilder.MapPut(
@@ -33,8 +42,16 @@ routeGroupBuilder.MapPut(
         [FromHeader] [Required] string correlationId,
         [FromBody] UpdateProductPriceRequest request,
         [FromServices] IValidator<UpdateProductPriceRequest> validator,
-        [FromServices] UpdateProductPriceRequestHandler handler
-    ) => RouteHandler.Handle(request with { CorrelationId = correlationId }, validator, handler)
+        [FromServices] IMessagePublisher publisher
+    ) =>
+        Update.RouteHandler.Handle(
+            request with
+            {
+                CorrelationId = correlationId
+            },
+            validator,
+            publisher
+        )
 );
 
 app.MapGet("/", () => "Hello World!");
